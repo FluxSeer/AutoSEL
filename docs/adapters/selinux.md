@@ -20,6 +20,11 @@ until qualified on the target SELinux distribution and policy base.
 Without `--compiler`, `validate` still performs dependency-free structural CIL
 validation and reports `compilerValidated: false`.
 
+On Linux, `make selinux-qualification` runs a qualification harness using the
+distribution's `secilc` binary. The harness compiles only to a temporary binary
+policy and also checks that malformed CIL is rejected. It does not load a
+module or qualify every distribution's policy base.
+
 The generated module is declaration-only in the current slice. Findings do
 not become SELinux enforcement rules until a reviewed Policy IR rule contract
 exists.

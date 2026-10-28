@@ -1,6 +1,6 @@
 GO := GOWORK=off go
 
-.PHONY: fmt test vet build lint
+.PHONY: fmt test vet build lint selinux-qualification
 
 fmt:
 	$(GO) fmt ./...
@@ -16,3 +16,6 @@ build:
 
 lint:
 	golangci-lint run ./...
+
+selinux-qualification:
+	./scripts/selinux/qualification.sh

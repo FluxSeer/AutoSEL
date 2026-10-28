@@ -32,7 +32,7 @@ remove containers, or rebuild images.
 | Policy IR | Supported | Typed, review-aware intermediate representation. |
 | Candidate CIL generation | Experimental | Deterministic declaration-only scaffold; not enforcement-ready. |
 | Static CIL validation | Experimental | Dependency-free structural validation. |
-| SELinux compiler validation | Experimental | Optional external compiler adapter; not qualified on this host. |
+| SELinux compiler validation | Experimental | Optional compiler adapter with a Linux `secilc` qualification harness; distro matrix pending. |
 | Docker event reconciliation | Planned | Bounded queue, retry, resync, and audit contract. |
 | Container replacement | Not supported | No safe execution contract exists yet. |
 
@@ -89,6 +89,8 @@ style.
 ## Current limitations
 
 - Linux SELinux runtime behavior is not yet qualified by CI.
+- Linux CIL compiler qualification covers the repository fixture only; policy
+  base, labels, kernel, and runtime compatibility remain unqualified.
 - Docker API inspection is implemented as an experimental read-only adapter;
   Docker daemon/runtime qualification is not yet in CI.
 - Docker event integration is not yet implemented.

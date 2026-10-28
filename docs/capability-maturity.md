@@ -8,10 +8,10 @@
 | Policy IR | Supported | Typed review-aware intermediate representation. |
 | Candidate CIL generation | Experimental | Declaration-only deterministic scaffold; no enforcement rules. |
 | Static CIL validation | Experimental | Structural validation with unit coverage. |
-| SELinux compiler adapter | Experimental | Optional command boundary with fake-runner tests; host compiler qualification pending. |
+| SELinux compiler adapter | Experimental | Optional command boundary with fake-runner tests and a Linux qualification harness. |
 | Docker API adapter | Experimental | Read-only `ContainerInspect` normalization with fake-client unit tests; live daemon qualification pending. |
 | Event reconciliation | Planned | Must handle duplicates, disconnects, retries, and resync. |
-| CIL compiler validation | Planned | Must precede privileged policy loading. |
+| CIL compiler validation | Experimental | CI compiles the repository fixture without loading a module; distro matrix remains pending. |
 | SELinux module loading | Planned | Requires explicit authorization and audit. |
 | Safe container replacement | Not supported | No data-preserving, rollback-capable contract yet. |
 
