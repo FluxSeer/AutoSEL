@@ -1,0 +1,23 @@
+# Capability maturity
+
+| Capability | Status | Current contract |
+| --- | --- | --- |
+| OCI config normalization | Supported | Typed subset used by `autosel plan`. |
+| Deterministic policy findings | Supported | Pure planner with unit coverage. |
+| Deterministic plan identity | Supported | Versioned input and policy SHA-256 digests. |
+| Policy IR | Supported | Typed review-aware intermediate representation. |
+| Candidate CIL generation | Experimental | Declaration-only deterministic scaffold; no enforcement rules. |
+| Static CIL validation | Experimental | Structural validation with unit coverage. |
+| SELinux compiler adapter | Experimental | Optional command boundary with fake-runner tests; host compiler qualification pending. |
+| Docker API adapter | Experimental | Read-only `ContainerInspect` normalization with fake-client unit tests; live daemon qualification pending. |
+| Event reconciliation | Planned | Must handle duplicates, disconnects, retries, and resync. |
+| CIL compiler validation | Planned | Must precede privileged policy loading. |
+| SELinux module loading | Planned | Requires explicit authorization and audit. |
+| Safe container replacement | Not supported | No data-preserving, rollback-capable contract yet. |
+
+An installed package, exported function, or future interface must not be
+interpreted as supported runtime behavior unless it appears in this table and
+has matching verification evidence.
+
+The original mutation implementation is retained only under
+`internal/legacy/` during migration and is not a supported capability.
