@@ -1,0 +1,25 @@
+{
+  "ociVersion": "1.0.2",
+  "process": {
+    "capabilities": {
+      "bounding": ["CAP_NET_BIND_SERVICE", "CAP_SYS_ADMIN"]
+    }
+  },
+  "mounts": [
+    {
+      "type": "bind",
+      "source": "/etc/shadow",
+      "destination": "/etc/shadow",
+      "options": ["rbind", "ro"]
+    }
+  ],
+  "linux": {
+    "devices": [
+      {
+        "pathOnHost": "/dev/nvme0n1",
+        "pathInContainer": "/dev/nvme0n1",
+        "permissions": "rwm"
+      }
+    ]
+  }
+}
