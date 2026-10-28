@@ -1,14 +1,15 @@
 package policy
 
 import (
-	"DynaSEL-latest/applicator"
-	"DynaSEL-latest/parser"
-	"DynaSEL-latest/policy/capability"
-	"DynaSEL-latest/policy/device"
-	"DynaSEL-latest/policy/mount"
 	"fmt"
 	"os"
 	"os/exec"
+
+	"github.com/FluxSeer/AutoSEL/internal/legacy/applicator"
+	"github.com/FluxSeer/AutoSEL/internal/legacy/parser"
+	"github.com/FluxSeer/AutoSEL/internal/legacy/policy/capability"
+	"github.com/FluxSeer/AutoSEL/internal/legacy/policy/device"
+	"github.com/FluxSeer/AutoSEL/internal/legacy/policy/mount"
 )
 
 const (
@@ -29,7 +30,11 @@ func CreateSELinuxPolicyCil(strConfigDirPath string, strContainerID string) {
 	if err != nil {
 		return
 	}
-	defer filePolicyCil.Close()
+	defer func() {
+		if closeErr := filePolicyCil.Close(); closeErr != nil {
+			fmt.Printf("failed to close policy file: %v\n", closeErr)
+		}
+	}()
 
 	strPolicy := fmt.Sprintf("(block container_%s\n", strContainerID)
 

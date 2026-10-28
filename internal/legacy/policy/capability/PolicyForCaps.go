@@ -11,11 +11,12 @@ func CreatePolicyFromConfig(capabilities []map[string]interface{}, strPolicy str
 
 		highRiskFiltered := filterHighRiskCapabilities(capsMap["bounding"].([]interface{}))
 		for _, cap := range highRiskFiltered {
-			cap, ok := cap.(string)
+			capName, ok := cap.(string)
 			if !ok {
 				fmt.Printf("Expected string in highRiskFiltered, got %T", cap)
+				continue
 			}
-			strPolicy += " " + strings.ToLower(cap[4:])
+			strPolicy += " " + strings.ToLower(capName[4:])
 		}
 
 		strPolicy += (" )))\n")
@@ -45,10 +46,9 @@ var highRiskCaps = map[string]bool{
 func filterHighRiskCapabilities(caps []interface{}) []interface{} {
 	var highRiskFiltered []interface{}
 	for _, cap := range caps {
-		if highRiskCaps[cap.(string)] {
+		capName, ok := cap.(string)
+		if ok && highRiskCaps[capName] {
 			highRiskFiltered = append(highRiskFiltered, cap)
-		} else {
-			// fmt.Printf("Allowed capability: %s\n", cap)
 		}
 	}
 	return highRiskFiltered

@@ -1,11 +1,11 @@
 package parser
 
 import (
-	// "DynaSEL-latest/monitor"
-	"DynaSEL-latest/parser/config"
 	"encoding/json"
 	"os"
 	"path/filepath"
+
+	"github.com/FluxSeer/AutoSEL/internal/legacy/parser/config"
 )
 
 type ParserResult struct {
@@ -31,7 +31,9 @@ func (r *ParserResult) Parse(strConfigDirPath string, strContainerID string) {
 // internal functions
 func parseToJson(data string) []map[string]interface{} {
 	var parsedData map[string]interface{}
-	json.Unmarshal([]byte(data), &parsedData)
+	if err := json.Unmarshal([]byte(data), &parsedData); err != nil {
+		return nil
+	}
 	return []map[string]interface{}{parsedData}
 }
 

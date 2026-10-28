@@ -1,15 +1,18 @@
 package config
 
 import (
-	"DynaSEL-latest/parser/auxiliary"
 	"encoding/json"
 	"errors"
 	"fmt"
+
+	"github.com/FluxSeer/AutoSEL/internal/legacy/parser/auxiliary"
 )
 
 func ParseToJson(data string) []map[string]interface{} {
 	var parsedData map[string]interface{}
-	json.Unmarshal([]byte(data), &parsedData)
+	if err := json.Unmarshal([]byte(data), &parsedData); err != nil {
+		return nil
+	}
 	return []map[string]interface{}{parsedData}
 }
 

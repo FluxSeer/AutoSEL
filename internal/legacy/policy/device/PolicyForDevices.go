@@ -118,10 +118,9 @@ func splitContext(context string) []string {
 func filterHighRiskDevices(caps []interface{}) []interface{} {
 	var highRiskFiltered []interface{}
 	for _, cap := range caps {
-		if highRiskDevices[cap.(string)] {
+		capName, ok := cap.(string)
+		if ok && highRiskDevices[capName] {
 			highRiskFiltered = append(highRiskFiltered, cap)
-		} else {
-			// fmt.Printf("Allowed capability: %s\n", cap)
 		}
 	}
 	return highRiskFiltered

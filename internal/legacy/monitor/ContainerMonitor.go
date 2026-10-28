@@ -1,11 +1,11 @@
 package monitor
 
 import (
-	"DynaSEL-latest/policy"
 	"context"
 	"fmt"
 	"log"
 
+	"github.com/FluxSeer/AutoSEL/internal/legacy/policy"
 	"github.com/docker/docker/api/types/events"
 	"github.com/docker/docker/client"
 )

@@ -72,13 +72,21 @@ func exportContainerToTarFile(cli *client.Client, containerName, outputPath stri
 	if err != nil {
 		return fmt.Errorf("failed to export container: %v", err)
 	}
-	defer reader.Close()
+	defer func() {
+		if closeErr := reader.Close(); closeErr != nil {
+			log.Printf("failed to close exported container stream: %v", closeErr)
+		}
+	}()
 
 	file, err := os.Create(outputPath)
 	if err != nil {
 		return fmt.Errorf("failed to create export file: %v", err)
 	}
-	defer file.Close()
+	defer func() {
+		if closeErr := file.Close(); closeErr != nil {
+			log.Printf("failed to close exported container file: %v", closeErr)
+		}
+	}()
 
 	if _, err := io.Copy(file, reader); err != nil {
 		return fmt.Errorf("failed to write container data: %v", err)
@@ -93,7 +101,11 @@ func importTarFileToBuildImage(cli *client.Client, importFile, containerImage st
 	if err != nil {
 		return fmt.Errorf("failed to open file: %v", err)
 	}
-	defer file.Close()
+	defer func() {
+		if closeErr := file.Close(); closeErr != nil {
+			log.Printf("failed to close image input file: %v", closeErr)
+		}
+	}()
 
 	_, err = cli.ImageLoad(ctx, file, true)
 	if err != nil {
