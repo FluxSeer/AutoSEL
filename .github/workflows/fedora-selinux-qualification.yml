@@ -1,0 +1,49 @@
+name: Fedora SELinux qualification
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: autosel-fedora-selinux-qualification
+  cancel-in-progress: false
+
+jobs:
+  qualify:
+    name: Fedora SELinux compiler qualification
+    # This label must be present only on an isolated, ephemeral Fedora VM.
+    # It is intentionally not part of the pull-request required checks.
+    runs-on: [self-hosted, linux, x64, fedora-selinux-ephemeral]
+    environment: fedora-selinux-qualification
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Setup Go
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        with:
+          go-version-file: go.mod
+          cache: true
+          cache-dependency-path: go.sum
+
+      - name: Install SELinux CIL compiler
+        run: sudo dnf install --assumeyes secilc
+
+      - name: Record Fedora qualification environment
+        run: |
+          set -euo pipefail
+          cat /etc/fedora-release
+          uname -a
+          rpm -q secilc
+          if command -v getenforce >/dev/null 2>&1; then
+            getenforce
+          fi
+          if command -v sestatus >/dev/null 2>&1; then
+            sestatus || true
+          fi
+
+      - name: Run read-only SELinux qualification
+        run: ./scripts/selinux/qualification.sh

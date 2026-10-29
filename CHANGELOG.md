@@ -15,6 +15,8 @@
   isolation;
 - Ubuntu 24.04 Linux compiler qualification harness and support matrix;
 - minimal complete CIL policy base fixture for candidate compiler qualification;
+- manual Fedora qualification workflow and guarded Proxmox ephemeral-runner
+  lifecycle helpers;
 - repository engineering, security, contribution, and capability-boundary
   documentation;
 - unit coverage for high-risk capabilities, mounts, devices, and invalid input.

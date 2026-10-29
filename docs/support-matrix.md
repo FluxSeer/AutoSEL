@@ -18,7 +18,7 @@ lifecycle.
 | --- | --- | --- | --- |
 | Ubuntu 24.04 amd64, GitHub Actions `ubuntu-24.04`, Ubuntu `secilc` package | Candidate fixture compiled with the checked-in minimal policy base using `secilc` | Not tested | CI qualification target |
 | Ubuntu 22.04 amd64 | Not run in CI | Not tested | Planned |
-| Fedora / RHEL | Not run in CI | Not tested | Planned |
+| Fedora / RHEL ephemeral runner | Manual workflow on an isolated Fedora VM with distro `secilc` | Not tested | Qualification ready; evidence pending |
 | macOS development host | No native SELinux compiler expected | Not applicable | Static tests only |
 
 ## Current compiler profiles
@@ -46,6 +46,23 @@ GOWORK=off go run ./cmd/autosel validate \
 The standalone command above is intended for a complete policy input. For the
 repository candidate qualification, use `make selinux-qualification`, which
 combines `testdata/selinux/minimal-policy.cil` with the candidate fixture.
+
+## Fedora manual qualification
+
+`.github/workflows/fedora-selinux-qualification.yml` is intentionally
+`workflow_dispatch`-only and targets the `fedora-selinux-ephemeral` runner
+label. It is not a pull-request required check and uses the
+`fedora-selinux-qualification` environment, which should be configured with
+required reviewers. The runner must be a clean VM clone of the
+`fedora-selinux-base` template, registered with GitHub using `--ephemeral`,
+and removed after the single job. The expected lab clone name is
+`fedora-selinux-autosel-lab`.
+
+The Proxmox helper scripts run on the Proxmox node. Provisioning starts a
+tagged clone but does not register a GitHub runner or accept a runner token;
+registration is an out-of-band operator step. Cleanup requires the exact VMID
+confirmation and refuses untagged VMs. The scripts retain configuration
+snapshots and never run in GitHub-hosted CI.
 
 ## Explicitly outside the matrix
 

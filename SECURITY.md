@@ -27,6 +27,14 @@ Any future application path must be separately authorized and must define:
 AutoSEL must not persist secrets, tokens, authorization headers, or complete
 container environment variables in plans, logs, fixtures, or audit artifacts.
 
+Self-hosted runner boundary: Fedora qualification is manual-only and must use
+an isolated, single-job runner. Runner registration tokens are supplied
+out-of-band, never committed to the repository, and must not appear in
+workflow logs. The base Fedora template is not itself a runner; each job must
+use a fresh VM clone and clean it up after the job. The GitHub environment used
+by the workflow should require maintainer approval before allocating the
+self-hosted runner.
+
 ## Support boundary
 
 AutoSEL is pre-1.0 and experimental. The supported behavior is listed in
