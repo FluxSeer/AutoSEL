@@ -1,0 +1,93 @@
+name: AutoSEL CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths:
+      - "cmd/**"
+      - "internal/**"
+      - "parser/**"
+      - "policy/**"
+      - "monitor/**"
+      - "applicator/**"
+      - "docs/**"
+      - "testdata/**"
+      - "scripts/**"
+      - "*.go"
+      - "go.mod"
+      - "go.sum"
+      - "AGENTS.md"
+      - ".golangci.yml"
+      - ".gitignore"
+      - "CHANGELOG.md"
+      - "CONTRIBUTING.md"
+      - "LICENSE"
+      - "Makefile"
+      - "README.md"
+      - "ROADMAP.md"
+      - "SECURITY.md"
+      - ".github/workflows/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: autosel-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify source and tests
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Setup Go
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        with:
+          go-version-file: go.mod
+          cache: true
+          cache-dependency-path: go.sum
+
+      - name: Test
+        run: GOWORK=off go test ./...
+
+      - name: Check formatting
+        run: test -z "$(gofmt -l .)"
+
+      - name: Vet
+        run: GOWORK=off go vet ./...
+
+      - name: Lint
+        uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9
+        with:
+          version: v2.12.2
+
+      - name: Build
+        run: GOWORK=off go build ./...
+
+  selinux-qualification:
+    name: Linux SELinux compiler qualification
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Setup Go
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        with:
+          go-version-file: go.mod
+          cache: true
+          cache-dependency-path: go.sum
+
+      - name: Install SELinux CIL compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes secilc
+
+      - name: Run compiler qualification
+        run: ./scripts/selinux/qualification.sh

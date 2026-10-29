@@ -1,0 +1,5 @@
+/autosel
+/bin/
+*.test
+*.out
+.DS_Store

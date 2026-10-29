@@ -1,4 +1,4 @@
-module DynaSEL-latest
+module github.com/FluxSeer/AutoSEL
 
 go 1.23.3
 
