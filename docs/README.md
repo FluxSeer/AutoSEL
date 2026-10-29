@@ -6,6 +6,7 @@
 - [Policy planning boundary ADR](architecture/adr/0001-policy-planning-boundary.md)
 - [Docker inspection adapter](adapters/docker.md)
 - [Docker inspection ADR](architecture/adr/0002-docker-inspection-adapter.md)
+- [Docker read-only qualification ADR](architecture/adr/0008-docker-readonly-qualification.md)
 - [Deterministic policy identity ADR](architecture/adr/0003-deterministic-policy-identity.md)
 - [Candidate CIL validation ADR](architecture/adr/0004-candidate-cil-validation.md)
 - [Validation evidence and rule contract ADR](architecture/adr/0007-validation-evidence-and-rule-contract.md)

@@ -11,6 +11,7 @@
 | Static CIL validation | Experimental | Structural validation with unit coverage. |
 | SELinux compiler adapter | Experimental | Optional command boundary with fake-runner tests and a Linux qualification harness. |
 | Docker API adapter | Experimental | Read-only `ContainerInspect` normalization with fake-client unit tests; live daemon qualification pending. |
+| Docker read-only live qualification | Experimental | Manual, approval-gated harness against a pre-existing lab container; no container mutation. |
 | Event reconciliation | Planned | Must handle duplicates, disconnects, retries, and resync. |
 | CIL compiler validation | Experimental | Ubuntu 24.04 CI and three Fedora 44 ephemeral runs compile the repository fixture without loading a module; broader distro matrix remains pending. |
 | SELinux module loading | Planned | Requires explicit authorization and audit. |

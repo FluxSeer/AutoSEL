@@ -34,5 +34,10 @@ start, export, import, or SELinux commands.
 ## Qualification boundary
 
 The adapter has fake-client unit coverage for normalization and error handling.
-Live Docker Engine, rootless Docker, Docker Desktop, SELinux labeling, and
-distribution compatibility remain unverified.
+The manual `Docker read-only qualification` workflow and
+`make docker-readonly-qualification` harness can qualify a pre-existing
+container on an isolated lab daemon. They only inspect and plan; they never
+create, start, stop, remove, exec into, export, or modify a container. Live
+Docker Engine, rootless Docker, Docker Desktop, SELinux labeling, and
+distribution compatibility remain unverified until each environment has
+recorded evidence.
