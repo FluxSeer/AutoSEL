@@ -18,7 +18,7 @@ lifecycle.
 | --- | --- | --- | --- |
 | Ubuntu 24.04 amd64, GitHub Actions `ubuntu-24.04`, Ubuntu `secilc` package | Candidate fixture compiled with the checked-in minimal policy base using `secilc` | Not tested | CI qualification target |
 | Ubuntu 22.04 amd64 | Not run in CI | Not tested | Planned |
-| Fedora 44 amd64 ephemeral runner | Fedora `secilc` 3.11-1.fc44 compiled the candidate fixture with the minimal policy base | Runtime enforcement not tested | Verified once in manual run 40808643501 |
+| Fedora 44 amd64 ephemeral runner | Fedora `secilc` 3.11-1.fc44 compiled the candidate fixture with the minimal policy base | Runtime enforcement not tested | Verified in three manual runs |
 | macOS development host | No native SELinux compiler expected | Not applicable | Static tests only |
 
 ## Current compiler profiles
@@ -64,12 +64,13 @@ registration is an out-of-band operator step. Cleanup requires the exact VMID
 confirmation and refuses untagged VMs. The scripts retain configuration
 snapshots and never run in GitHub-hosted CI.
 
-The first manual run used Fedora 44 with kernel
-`6.19.10-300.fc44.x86_64`, SELinux `Enforcing`, and the
-`fedora-selinux-autosel-lab-921` runner. The runner deregistered after the
-successful job and VM 921 was destroyed with its cleanup configuration
-snapshot retained. This is compiler qualification evidence only; it does not
-qualify policy loading, labels, Docker, or kernel enforcement behavior.
+The three successful manual runs were `40808643501`, `40813044161`, and
+`40813389428`. They used Fedora 44 with kernel
+`6.19.10-300.fc44.x86_64`, SELinux `Enforcing`, and fresh ephemeral runners.
+Each runner deregistered after its job and its VM was destroyed with a cleanup
+configuration snapshot retained. This is compiler qualification evidence
+only; it does not qualify policy loading, labels, Docker, or kernel enforcement
+behavior.
 
 ## Explicitly outside the matrix
 
