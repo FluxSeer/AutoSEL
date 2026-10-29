@@ -32,7 +32,7 @@ remove containers, or rebuild images.
 | Policy IR | Supported | Typed, review-aware intermediate representation. |
 | Candidate CIL generation | Experimental | Deterministic declaration-only scaffold; not enforcement-ready. |
 | Static CIL validation | Experimental | Dependency-free structural validation. |
-| SELinux compiler validation | Experimental | Optional compiler adapter with a Linux `secilc` qualification harness; distro matrix pending. |
+| SELinux compiler validation | Experimental | Optional compiler adapter with Ubuntu 24.04 CI and Fedora 44 ephemeral qualification evidence; broader distro matrix pending. |
 | Docker event reconciliation | Planned | Bounded queue, retry, resync, and audit contract. |
 | Container replacement | Not supported | No safe execution contract exists yet. |
 
