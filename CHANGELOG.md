@@ -18,6 +18,7 @@
 - manual Fedora qualification workflow and guarded Proxmox ephemeral-runner
   lifecycle helpers;
 - first successful Fedora 44 manual compiler qualification evidence;
+- three-run Fedora ephemeral qualification repeatability evidence;
 - repository engineering, security, contribution, and capability-boundary
   documentation;
 - unit coverage for high-risk capabilities, mounts, devices, and invalid input.
