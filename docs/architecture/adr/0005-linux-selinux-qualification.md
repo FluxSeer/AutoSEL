@@ -18,10 +18,11 @@ Add a Linux CI qualification job that:
 
 1. installs the distribution-provided `secilc` compiler;
 2. runs the normal read-only `autosel validate` path against the OCI fixture;
-3. runs `autosel validate` with the explicit `secilc` compiler profile, which
-   compiles into a temporary binary policy;
-4. verifies that malformed CIL is rejected; and
-5. never invokes `semodule`, writes the system policy store, or changes host
+3. checks the declaration-only candidate with static validation;
+4. compiles the candidate together with the repository's minimal complete
+   policy fixture into a temporary binary policy;
+5. verifies that malformed CIL is rejected; and
+6. never invokes `semodule`, writes the system policy store, or changes host
    SELinux state.
 
 The repository wrapper remains available for negative compiler checks. The
@@ -31,8 +32,9 @@ unqualified until the support matrix records evidence.
 
 ## Consequences
 
-`compilerValidated: true` will have evidence from an actual Linux compiler in
-CI, while `staticValid: true` remains the dependency-free local signal. The
-project still does not claim that a candidate is loadable on every SELinux
-distribution, nor does it claim that the declaration-only artifact enforces
-any finding.
+The compiler job has evidence that the candidate can be parsed in the context
+of the checked-in minimal policy base by an actual Linux compiler. The
+declaration-only artifact is not passed to `secilc` as a complete policy on
+its own. The project still does not claim that a candidate is loadable on
+every SELinux distribution, compatible with a host's installed policy base, or
+enforcing any finding.

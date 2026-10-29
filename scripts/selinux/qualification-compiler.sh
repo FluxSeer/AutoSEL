@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ "$#" -ne 1 ]]; then
-  echo "usage: qualification-compiler.sh <candidate.cil>" >&2
+if [[ "$#" -ne 2 ]]; then
+  echo "usage: qualification-compiler.sh <base-policy.cil> <candidate.cil>" >&2
   exit 2
 fi
 
-candidate="$1"
+base_policy="$1"
+candidate="$2"
+if [[ ! -f "$base_policy" ]]; then
+  echo "base policy CIL does not exist: $base_policy" >&2
+  exit 2
+fi
 if [[ ! -f "$candidate" ]]; then
   echo "candidate CIL does not exist: $candidate" >&2
   exit 2
@@ -23,4 +28,4 @@ trap 'rm -rf "$workspace"' EXIT
 
 # Compile into a temporary binary policy only. This wrapper never invokes
 # semodule or otherwise changes the host SELinux policy store.
-exec "$compiler" -o "$workspace/policy.kern" "$candidate"
+exec "$compiler" -o "$workspace/policy.kern" "$base_policy" "$candidate"

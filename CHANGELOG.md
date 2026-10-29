@@ -14,6 +14,7 @@
 - explicit `direct` and `secilc` compiler profiles with temporary output
   isolation;
 - Ubuntu 24.04 Linux compiler qualification harness and support matrix;
+- minimal complete CIL policy base fixture for candidate compiler qualification;
 - repository engineering, security, contribution, and capability-boundary
   documentation;
 - unit coverage for high-risk capabilities, mounts, devices, and invalid input.
