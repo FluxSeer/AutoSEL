@@ -29,6 +29,11 @@ compiles the generated candidate together with
 Without `--compiler`, `validate` still performs dependency-free structural CIL
 validation and reports `compilerValidated: false`.
 
+Every successful `validate` response also includes an `evidence` object with
+schema version, planner/input/policy/artifact digests, compiler scope, and
+explicit `policyLoaded: false` and `runtimeEnforcementTested: false` fields.
+The evidence object is an audit boundary, not a runtime compatibility claim.
+
 On Linux, `make selinux-qualification` runs a qualification harness using the
 distribution's `secilc` binary. The harness statically validates the generated
 candidate, compiles it with the checked-in minimal policy base, and checks that

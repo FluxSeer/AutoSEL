@@ -22,6 +22,11 @@ func GenerateCIL(ir PolicyIR) (CILArtifact, error) {
 	if !cilIdentifierPattern.MatchString(ir.ModuleName) || !cilIdentifierPattern.MatchString(ir.TypeName) {
 		return CILArtifact{}, fmt.Errorf("policy IR contains an invalid CIL identifier")
 	}
+	for _, rule := range ir.Rules {
+		if err := ValidateRuleContract(rule); err != nil {
+			return CILArtifact{}, fmt.Errorf("validate policy rule contract: %w", err)
+		}
+	}
 	if len(ir.Rules) > 0 {
 		return CILArtifact{}, fmt.Errorf("policy enforcement rules are not enabled in this planning slice")
 	}
