@@ -11,6 +11,9 @@
 - cross-adapter planner consistency tests;
 - typed Policy IR, declaration-only candidate CIL, and static validation;
 - optional external SELinux compiler adapter boundary;
+- explicit `direct` and `secilc` compiler profiles with temporary output
+  isolation;
+- Ubuntu 24.04 Linux compiler qualification harness and support matrix;
 - repository engineering, security, contribution, and capability-boundary
   documentation;
 - unit coverage for high-risk capabilities, mounts, devices, and invalid input.

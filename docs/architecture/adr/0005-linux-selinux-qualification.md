@@ -18,14 +18,16 @@ Add a Linux CI qualification job that:
 
 1. installs the distribution-provided `secilc` compiler;
 2. runs the normal read-only `autosel validate` path against the OCI fixture;
-3. invokes a repository wrapper that compiles into a temporary binary policy;
+3. runs `autosel validate` with the explicit `secilc` compiler profile, which
+   compiles into a temporary binary policy;
 4. verifies that malformed CIL is rejected; and
 5. never invokes `semodule`, writes the system policy store, or changes host
    SELinux state.
 
-The wrapper is intentionally a qualification harness, not a production
-runtime profile. Distribution-specific policy-base and runtime support remain
-unqualified until a support matrix is published.
+The repository wrapper remains available for negative compiler checks. The
+profile is intentionally a qualification contract, not a production runtime
+profile. Distribution-specific policy-base and runtime support remain
+unqualified until the support matrix records evidence.
 
 ## Consequences
 

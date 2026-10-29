@@ -76,7 +76,8 @@ OCI/Docker adapter
 ```
 
 See [docs/README.md](docs/README.md),
-[docs/architecture/overview.md](docs/architecture/overview.md), and the
+[docs/architecture/overview.md](docs/architecture/overview.md),
+[support and qualification matrix](docs/support-matrix.md), and the
 [policy planning boundary ADR](docs/architecture/adr/0001-policy-planning-boundary.md).
 
 ## Open-source development

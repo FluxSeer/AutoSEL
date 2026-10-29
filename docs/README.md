@@ -9,6 +9,7 @@
 - [Deterministic policy identity ADR](architecture/adr/0003-deterministic-policy-identity.md)
 - [Candidate CIL validation ADR](architecture/adr/0004-candidate-cil-validation.md)
 - [SELinux validation adapter](adapters/selinux.md)
+- [Support and qualification matrix](support-matrix.md)
 - [Capability maturity](capability-maturity.md)
 - [Security policy](../SECURITY.md)
 - [Roadmap](../ROADMAP.md)

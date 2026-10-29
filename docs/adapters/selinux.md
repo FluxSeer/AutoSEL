@@ -9,13 +9,15 @@ or installs a policy module.
 GOWORK=off go run ./cmd/autosel validate \
   --id <container-id> \
   --input config.json \
-  --compiler <compiler-binary>
+  --compiler <compiler-binary> \
+  --compiler-profile <direct|secilc>
 ```
 
-The configured compiler receives one temporary CIL path as its positional
-argument. Distribution-specific flags and policy-store context are deliberately
-not guessed by the first adapter. A compiler result is therefore experimental
-until qualified on the target SELinux distribution and policy base.
+The `direct` profile receives one temporary CIL path as its positional
+argument. The `secilc` profile passes an explicit temporary output path to
+`secilc`. Compiler flags and policy-store context are still not inferred from
+the host; select a profile deliberately and qualify it on the target
+distribution and policy base.
 
 Without `--compiler`, `validate` still performs dependency-free structural CIL
 validation and reports `compilerValidated: false`.

@@ -70,6 +70,7 @@ type validationResult struct {
 	Artifact          policy.CILArtifact `json:"artifact"`
 	StaticValid       bool               `json:"staticValid"`
 	Compiler          string             `json:"compiler,omitempty"`
+	CompilerProfile   string             `json:"compilerProfile,omitempty"`
 	CompilerValidated bool               `json:"compilerValidated"`
 }
 
@@ -79,7 +80,8 @@ func runValidate(args []string) error {
 	inputPath := flags.String("input", "-", "OCI config.json path, or - for stdin")
 	containerID := flags.String("id", "", "container ID for OCI config input")
 	dockerContainer := flags.String("container", "", "inspect this Docker container through the read-only Docker API")
-	compilerBinary := flags.String("compiler", "", "optional SELinux compiler binary; receives the candidate CIL path")
+	compilerBinary := flags.String("compiler", "", "optional SELinux compiler binary")
+	compilerProfile := flags.String("compiler-profile", selinux.ProfileDirect, "compiler invocation profile: direct or secilc")
 	if err := flags.Parse(args); err != nil {
 		return err
 	}
@@ -110,7 +112,11 @@ func runValidate(args []string) error {
 		StaticValid: true,
 	}
 	if strings.TrimSpace(*compilerBinary) != "" {
-		compiler, err := selinux.NewCompiler(*compilerBinary, nil)
+		profile, err := selinux.NewCompilerProfile(*compilerProfile)
+		if err != nil {
+			return err
+		}
+		compiler, err := selinux.NewCompilerWithProfile(*compilerBinary, profile, nil)
 		if err != nil {
 			return err
 		}
@@ -118,6 +124,7 @@ func runValidate(args []string) error {
 			return err
 		}
 		result.Compiler = *compilerBinary
+		result.CompilerProfile = profile.Name
 		result.CompilerValidated = true
 	}
 
@@ -172,5 +179,5 @@ func usage(w io.Writer) {
 	_, _ = fmt.Fprintln(w, "  autosel plan --container <container-id>")
 	_, _ = fmt.Fprintln(w, "  cat config.json | autosel plan --id <container-id>")
 	_, _ = fmt.Fprintln(w, "  autosel validate --id <container-id> --input <oci-config.json>")
-	_, _ = fmt.Fprintln(w, "  autosel validate --container <container-id> [--compiler <binary>]")
+	_, _ = fmt.Fprintln(w, "  autosel validate --container <container-id> [--compiler <binary> --compiler-profile <name>]")
 }
