@@ -93,7 +93,7 @@ style.
 - Linux CIL compiler qualification covers the repository fixture only; policy
   base, labels, kernel, and runtime compatibility remain unqualified.
 - Fedora qualification is manual-only on an isolated ephemeral runner and is
-  not a pull-request required check.
+  not a pull-request required check; one Fedora 44 compiler run has passed.
 - Docker API inspection is implemented as an experimental read-only adapter;
   Docker daemon/runtime qualification is not yet in CI.
 - Docker event integration is not yet implemented.

@@ -46,7 +46,10 @@ the VM. Configuration snapshots are retained in a restricted state directory.
 
 ## Verification
 
-The workflow must be run manually on a clean Fedora runner and its logs must
-record the Fedora release, kernel, and `secilc` package version. The repository
-checks remain the local Go test/vet/build suite plus the Ubuntu qualification
-job. Proxmox commands are not executed by repository CI.
+The first manual run completed successfully as GitHub Actions run
+`40808643501` on Fedora 44, kernel `6.19.10-300.fc44.x86_64`, with
+`secilc-3.11-1.fc44` and SELinux enforcing. The runner deregistered after the
+job and VM 921 was destroyed with its cleanup snapshot retained. This verifies
+the compiler fixture lifecycle only; runtime policy enforcement and Docker
+integration remain unqualified. Proxmox commands are not executed by
+repository CI.
