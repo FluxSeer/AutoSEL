@@ -22,7 +22,7 @@ Exit criteria:
 
 ## v0.2 Adapter and validation foundations
 
-- Docker API inspection adapter (implemented experimentally; runtime qualification pending);
+- Docker API inspection adapter (implemented experimentally; manual read-only live qualification harness added; environment evidence pending);
 - Docker event collector with reconnect and periodic resync;
 - CIL generation and compiler validation;
 - reviewed enforcement-rule contract;

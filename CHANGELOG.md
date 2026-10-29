@@ -21,6 +21,7 @@
 - three-run Fedora ephemeral qualification repeatability evidence;
 - versioned validation evidence output and typed policy-rule provenance/approval
   contract;
+- approval-gated Docker read-only live qualification harness and workflow;
 - repository engineering, security, contribution, and capability-boundary
   documentation;
 - unit coverage for high-risk capabilities, mounts, devices, and invalid input.

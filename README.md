@@ -99,6 +99,9 @@ style.
   passed.
 - Docker API inspection is implemented as an experimental read-only adapter;
   Docker daemon/runtime qualification is not yet in CI.
+- Docker live qualification is manual-only and requires a pre-existing
+  container on an isolated lab runner; the qualification harness performs no
+  container mutation.
 - Docker event integration is not yet implemented.
 - The planner does not claim complete least-privilege policy coverage.
 - No generated CIL is loaded automatically.

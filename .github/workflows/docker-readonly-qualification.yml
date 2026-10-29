@@ -1,0 +1,40 @@
+name: Docker read-only qualification
+
+on:
+  workflow_dispatch:
+    inputs:
+      container_id:
+        description: "Pre-existing container ID on the isolated Docker lab runner"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: autosel-docker-readonly-qualification
+  cancel-in-progress: false
+
+jobs:
+  qualify:
+    name: Docker read-only inspect and plan
+    # The runner must expose a pre-existing lab Docker daemon. It must not be
+    # used for pull-request jobs or untrusted workflow code.
+    runs-on: [self-hosted, linux, x64, docker-readonly-lab]
+    environment: docker-readonly-qualification
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+
+      - name: Setup Go
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        with:
+          go-version-file: go.mod
+          cache: true
+          cache-dependency-path: go.sum
+
+      - name: Run read-only Docker qualification
+        env:
+          AUTOSEL_DOCKER_CONTAINER_ID: ${{ inputs.container_id }}
+        run: ./scripts/docker/qualification.sh
