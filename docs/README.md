@@ -8,6 +8,7 @@
 - [Docker inspection ADR](architecture/adr/0002-docker-inspection-adapter.md)
 - [Deterministic policy identity ADR](architecture/adr/0003-deterministic-policy-identity.md)
 - [Candidate CIL validation ADR](architecture/adr/0004-candidate-cil-validation.md)
+- [Validation evidence and rule contract ADR](architecture/adr/0007-validation-evidence-and-rule-contract.md)
 - [SELinux validation adapter](adapters/selinux.md)
 - [Support and qualification matrix](support-matrix.md)
 - [Capability maturity](capability-maturity.md)

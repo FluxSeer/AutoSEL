@@ -5,7 +5,8 @@
 | OCI config normalization | Supported | Typed subset used by `autosel plan`. |
 | Deterministic policy findings | Supported | Pure planner with unit coverage. |
 | Deterministic plan identity | Supported | Versioned input and policy SHA-256 digests. |
-| Policy IR | Supported | Typed review-aware intermediate representation. |
+| Policy IR | Supported | Typed review-aware intermediate representation with versioned rule provenance and approval fields; enforcement remains disabled. |
+| Validation evidence contract | Experimental | Versioned `validate` evidence with digests and explicit policy-loading/runtime-negative claims. |
 | Candidate CIL generation | Experimental | Declaration-only deterministic scaffold; no enforcement rules. |
 | Static CIL validation | Experimental | Structural validation with unit coverage. |
 | SELinux compiler adapter | Experimental | Optional command boundary with fake-runner tests and a Linux qualification harness. |

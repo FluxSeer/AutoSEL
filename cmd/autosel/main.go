@@ -13,6 +13,7 @@ import (
 	"github.com/docker/docker/client"
 
 	inspectdocker "github.com/FluxSeer/AutoSEL/internal/docker"
+	"github.com/FluxSeer/AutoSEL/internal/evidence"
 	"github.com/FluxSeer/AutoSEL/internal/policy"
 	"github.com/FluxSeer/AutoSEL/internal/selinux"
 	"github.com/FluxSeer/AutoSEL/internal/spec"
@@ -66,12 +67,13 @@ func runPlan(args []string) error {
 }
 
 type validationResult struct {
-	Plan              policy.Plan        `json:"plan"`
-	Artifact          policy.CILArtifact `json:"artifact"`
-	StaticValid       bool               `json:"staticValid"`
-	Compiler          string             `json:"compiler,omitempty"`
-	CompilerProfile   string             `json:"compilerProfile,omitempty"`
-	CompilerValidated bool               `json:"compilerValidated"`
+	Plan              policy.Plan                 `json:"plan"`
+	Artifact          policy.CILArtifact          `json:"artifact"`
+	Evidence          evidence.ValidationEvidence `json:"evidence"`
+	StaticValid       bool                        `json:"staticValid"`
+	Compiler          string                      `json:"compiler,omitempty"`
+	CompilerProfile   string                      `json:"compilerProfile,omitempty"`
+	CompilerValidated bool                        `json:"compilerValidated"`
 }
 
 func runValidate(args []string) error {
@@ -126,6 +128,14 @@ func runValidate(args []string) error {
 		result.Compiler = *compilerBinary
 		result.CompilerProfile = profile.Name
 		result.CompilerValidated = true
+		result.Evidence = evidence.NewValidationEvidence(plan, artifact, &evidence.CompilerEvidence{
+			Binary:      *compilerBinary,
+			Profile:     profile.Name,
+			OutputScope: "temporary-workspace",
+		})
+	}
+	if result.Evidence.SchemaVersion == "" {
+		result.Evidence = evidence.NewValidationEvidence(plan, artifact, nil)
 	}
 
 	encoder := json.NewEncoder(os.Stdout)

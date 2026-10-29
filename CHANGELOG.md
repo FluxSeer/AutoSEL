@@ -19,6 +19,8 @@
   lifecycle helpers;
 - first successful Fedora 44 manual compiler qualification evidence;
 - three-run Fedora ephemeral qualification repeatability evidence;
+- versioned validation evidence output and typed policy-rule provenance/approval
+  contract;
 - repository engineering, security, contribution, and capability-boundary
   documentation;
 - unit coverage for high-risk capabilities, mounts, devices, and invalid input.

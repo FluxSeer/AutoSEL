@@ -60,7 +60,9 @@ The result is JSON with a `status` of either `ready` or `review-required` and
 machine-readable findings. `review-required` is a safety decision boundary,
 not an automatic deny or a claim of malicious behavior.
 
-`validate` emits the plan, candidate CIL artifact, and static validation result.
+`validate` emits the plan, candidate CIL artifact, static validation result, and
+versioned evidence metadata. The evidence explicitly records that policy
+loading and runtime enforcement were not tested in this read-only slice.
 The generated CIL is a declaration-only scaffold in this release; it does not
 enforce the findings and is never loaded automatically.
 
