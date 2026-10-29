@@ -17,6 +17,7 @@
 - minimal complete CIL policy base fixture for candidate compiler qualification;
 - manual Fedora qualification workflow and guarded Proxmox ephemeral-runner
   lifecycle helpers;
+- first successful Fedora 44 manual compiler qualification evidence;
 - repository engineering, security, contribution, and capability-boundary
   documentation;
 - unit coverage for high-risk capabilities, mounts, devices, and invalid input.
