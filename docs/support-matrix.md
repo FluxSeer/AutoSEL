@@ -4,6 +4,15 @@ This matrix describes evidence boundaries, not a promise that AutoSEL can
 load policy on a host. The current qualification job only compiles the
 declaration-only candidate artifact and never changes SELinux state.
 
+## CI runner policy
+
+The source verification and SELinux compiler qualification jobs use the
+GitHub-hosted `ubuntu-24.04` runner. The Proxmox Fedora
+`fedora-selinux-base` template is not registered as a CI runner and is not
+used by pull-request workflows. A Fedora-specific runtime qualification job
+requires separate evidence and an explicitly controlled, ephemeral runner
+lifecycle.
+
 | Environment | Compiler validation | Runtime/enforcement | Status |
 | --- | --- | --- | --- |
 | Ubuntu 24.04 amd64, GitHub Actions `ubuntu-24.04`, Ubuntu `secilc` package | Candidate fixture compiled with the `secilc` profile | Not tested | CI qualification target |
